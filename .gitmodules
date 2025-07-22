@@ -1,3 +1,6 @@
 [submodule "concord"]
 	path = concord
 	url = ./concord
+[submodule "src/concord"]
+	path = src/concord
+	url = https://github.com/Cogmasters/concord
