@@ -112,19 +112,14 @@ int run_discord_server(uint16_t port) {
             // printf("%ld\n", *channelFromBuffer);
             if (len <= 0) continue;
             buffer[len] = '\0';
-            char* payload = (char*)malloc(len-8);
-
-            strcpy(payload, &buffer[9]);
             // printf("verb: %d\n", verb);
-            bool requestResult = handleRequest(verb, *channelFromBuffer, payload);
+            bool requestResult = handleRequest(verb, *channelFromBuffer, &buffer[9]);
             int sent = send(client_fd, &requestResult, 1, 0);
 
             if (0 > sent){
                 close(client_fd);
                 break;
             }
-
-            free(payload);
         }
     }
 
