@@ -13,6 +13,7 @@ It used in a bigger project, to provide live discord notifications in replacemen
 # Usage
 
 ```nim
+import albaDiscord
 # Key for your discord bot
 let key = "discord key"
 # Port to communicate with the discord helper over UDP
