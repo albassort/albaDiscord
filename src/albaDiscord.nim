@@ -1,12 +1,7 @@
 import std/paths
-const
-  root = $(parentDir Path(currentSourcePath))
 
 {.compile: "./discord.c".}
 {.passl: "-ldiscord -lcurl".}
-{.passc: "-I" & root & "/concord/include/".} 
-{.passc: "-I" & root & "/concord/core/".} 
-{.passc: "-I" & root & "/concord/gencodecs/".} 
 
 import os
 import strutils
