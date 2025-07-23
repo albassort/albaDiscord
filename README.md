@@ -30,3 +30,21 @@ for y in 0 .. 4:
   sendMessageToDiscord("Hello, from Nim!", channel)
 echo getMonoTime()-t1
 ```
+```
+```
+
+
+# Testing
+Testing is implemented using `podman`, and can be configured via the following bash command:
+```sh
+$: git config core.hooksPath .githooks
+```
+
+This enables the pre-commit script defined in .githooks/pre-commit, and it will run the script defined in ./podman-test.sh internally within the container. It does the following
+
+1. Adds the necessary dependencies (curl-dev, make, git)
+2. Copy the current albaDiscord directroy
+3. Attempt to install albaDiscord
+4. Attempt to import and compile albaDiscord in nim
+
+This is to prevent regression in potential future releases.
