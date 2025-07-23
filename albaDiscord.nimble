@@ -5,4 +5,6 @@ license       = "MIT"
 srcDir        = "./src"
 requires "nim >= 2.0.6"
 
-
+after install:
+  let pkgDir = getCurrentDir()  
+  exec "make -C " & pkgDir & "/concord"
