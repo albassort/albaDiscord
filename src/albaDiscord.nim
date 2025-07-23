@@ -6,7 +6,7 @@ const
 {.passc: "-I" & root & "/concord/core/".} 
 {.passc: "-I" & root & "/concord/gencodecs/".} 
 
-{.passl: "-L./concord/lib -ldiscord -lcurl".}
+{.passl: "-L" & root & "/concord/lib -ldiscord -lcurl".}
 {.compile: "./discord.c".}
 
 import os
