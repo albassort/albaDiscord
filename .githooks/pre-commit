@@ -1,3 +1,15 @@
 #!/bin/bash
+podman pull docker.io/akito12/nim
+podman stop mycontainer
+podman rm mycontainer
+podman run -dit --name mycontainer akito13/nim sh
+podman cp ./podman-test.sh "mycontainer":/root/script.sh
+podman cp . "mycontainer":/root/albaDiscord
+podman exec "mycontainer" sh -c "chmod +x /root/script.sh && sh /root/script.sh"
 
-echo "Pre-Commit Test!"
+if [ $? -ne 0 ]; then
+  echo "podman failed!"
+  exit 1
+fi
+
+exit 0

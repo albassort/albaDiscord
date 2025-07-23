@@ -2,6 +2,7 @@
 apk add curl-dev
 apk add git
 apk add make
-nimble install https://github.com/albassort/albaDiscord/
+cd /root/albaDiscord
+nimble install
 echo "import albaDiscord" >test.nim
 nim c test
