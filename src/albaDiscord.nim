@@ -50,6 +50,7 @@ proc discordMesageThread(a : (string, cint)) =
   var t : Thread[cint]
   createThread(t, createDiscordThread, port)
 
+  sleep 200
   socket.connect("127.0.0.1", Port(port), 300)
 
   when not defined(offline):
