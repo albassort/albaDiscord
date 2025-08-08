@@ -14,14 +14,15 @@ import strutils
 import net
 import std/monotimes
 
-type Verb* = enum
-  PING = 0, IS_INIT = 1,
-  SET_TOKEN = 2, SEND_MESSAGE = 3
-type DiscordResult* = enum
- good, bad, dead
+type
+  Verb* = enum
+    PING = 0, IS_INIT = 1,
+    SET_TOKEN = 2, SEND_MESSAGE = 3
+  DiscordResult* = enum
+    good, bad, dead
+
 proc run_discord_server(port : cint) {.importc.}
 proc createDiscordThread*(port : cint) {.gcsafe.} =
-  echo "port"
   run_discord_server(port)
 
 proc sendDiscordEvent(a : Socket, verb : Verb, payload = "", channel : uint64 = 0) : DiscordResult =
@@ -36,6 +37,7 @@ proc sendDiscordEvent(a : Socket, verb : Verb, payload = "", channel : uint64 = 
       return bad
   except CatchableError as e:
     return dead
+
 var discordMessageChannel : Channel[(string, uint64)]
 discordMessageChannel.open()
 
@@ -48,9 +50,11 @@ proc discordMesageThread(a : (string, cint)) =
   var t : Thread[cint]
   createThread(t, createDiscordThread, port)
 
-  socket.connect("127.0.0.1", Port(port))
+  socket.connect("127.0.0.1", Port(port), 300)
+
   when not defined(offline):
     doAssert(sendDiscordEvent(socket, SET_TOKEN, token) == good)
+
   while (true):
     let discordMessage = discordMessageChannel.tryRecv
     if not discordMessage.dataAvailable:
